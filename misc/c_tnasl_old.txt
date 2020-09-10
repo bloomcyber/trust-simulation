@@ -1,0 +1,144 @@
+
+// Andrew West -tsys_tnasl.c - Abstraction of Subjective Logic trust sytem
+
+// ---------------------------- LOCAL INCLUDES -------------------------------
+
+#include "sim_globals.h"
+
+// -------------------------- GLOBAL VARIABLES -------------------------------
+
+Opinion** op_stor;
+Opinion** matrixA;
+Opinion** matrixB;
+float** max_val;
+
+// -------------------------- HIGH-LEVEL FUNCTIONS ---------------------------
+
+void tnasl_compute_trust(Network* nw, int user, int cycle){
+	if(cycle == 0)
+		tnasl_initialize(nw->ulib);
+	else // Intialize on first call
+		tnasl_master(nw->ulib, user);
+	return; // Compute trust thereafter
+}
+
+void tnasl_update(Network* nw, int new_vec, int new_row){
+	int pos = nw->ulib->users[new_vec].vector[new_row].pos_trans;
+	int neg = nw->ulib->users[new_vec].vector[new_row].neg_trans;
+	op_stor[new_row][new_vec].b = (pos/(pos + neg + 2.0));
+	op_stor[new_row][new_vec].d = (neg/(pos + neg + 2.0));
+	op_stor[new_row][new_vec].u = (2.0/(pos + neg + 2.0));
+	return;
+}
+
+// ----------------------------- TRUST HELPERS -------------------------------
+
+void tnasl_initialize(User_Library* ulib){
+	
+	op_stor = (Opinion**) calloc(NUM_USERS, sizeof(Opinion*));
+	matrixA = (Opinion**) calloc(NUM_USERS, sizeof(Opinion*));
+	matrixB = (Opinion**) calloc(NUM_USERS, sizeof(Opinion*));
+	max_val = (float**) calloc(NUM_USERS, sizeof(float*));
+	if(op_stor == NULL || matrixA == NULL || matrixB == NULL || max_val == NULL){
+		printf("\nMemory allocation failed. Aborting.\n\n");
+		exit(1);
+	} // Allocate 2-D pointer setup for storage/multiplication matrices
+	
+	int i, j;
+	for(i=0; i < NUM_USERS; i++){
+		op_stor[i] = (Opinion*) calloc(NUM_USERS, sizeof(Opinion));
+		matrixA[i] = (Opinion*) calloc(NUM_USERS, sizeof(Opinion));
+		matrixB[i] = (Opinion*) calloc(NUM_USERS, sizeof(Opinion));
+		max_val[i] = (float*) calloc(NUM_USERS, sizeof(float));
+		if(op_stor[i]==NULL||matrixA[i]==NULL||matrixB[i]==NULL||max_val[i]==NULL){
+			printf("\nMemory allocation failed. Aborting.\n\n");
+			exit(1);
+		} // Allocate row dimension of the matrices
+	} // Create simple matrices to store persistent vals & perform multiply
+
+	for(i=0; i < NUM_USERS; i++){
+		for(j=0; j < NUM_USERS; j++){
+			op_stor[i][j].b = 0.0;
+			op_stor[i][j].d = 0.0;
+			op_stor[i][j].u = 1.0;		
+			if(ulib->users[i].pre_trusted)
+				op_stor[i][j].a = 1.0;
+			else
+				op_stor[i][j].a = 0.5;
+		} // Initialize persistent Opinion values
+	}  // Do so for every relation in the network
+	return;
+}
+
+void tnasl_master(User_Library* ulib, int user){
+	int i, j;
+	for(i=0; i < NUM_USERS; i++){
+		for(j=0; j < NUM_USERS; j++)
+			max_val[i][j] = op_ev(&op_stor[i][j]);
+	} // Initialize the 'max value' matrix for this run
+
+	int cont_mult = tnasl_multiply(op_stor, matrixA);
+	while(cont_mult){
+		if(!tnasl_multiply(matrixA, matrixB))
+			break;
+		cont_mult = tnasl_multiply(matrixB, matrixA);
+	} // Multiply until 'max_val' matrix is saturated
+
+	for(i=0; i < NUM_USERS; i++){
+		ulib->users[user].vector[i].trust_val = max_val[i][user];
+	} // Export Opinion expected values's as trust values
+	return;
+}
+
+int tnasl_multiply(Opinion** source, Opinion** dest){
+	int i, j, k;
+	int max_modified = 0;
+	Opinion op_holder;
+	for(i=0; i < NUM_USERS; i++){
+		for(j=0; j < NUM_USERS; j++){
+			for(k=0; k < NUM_USERS; k++){
+				if(k==0)
+					op_discount(&source[i][0], &source[0][j], &dest[i][j]);
+				else{
+					op_discount(&source[i][k], &source[k][j], &op_holder);
+					op_consensus(&dest[i][j], &op_holder, &dest[i][j]);
+				} // Don't consensus first discount; it isn't monotonic like add
+			} // The inner loop of matrix multiply
+			if(op_ev(&dest[i][j]) > max_val[i][j]){
+				max_val[i][j] = op_ev(&dest[i][j]);
+				max_modified = 1;
+			} // Update the 'max_value' matrix at each position as necessary
+		} // Discount and then consensus Opinions
+	} // Perform 'multiply' over all user vectors and rows
+	return max_modified;
+}
+
+// --------------------------- OPINION FUNCTIONS ----------------------------
+
+void op_discount(Opinion* op1, Opinion* op2, Opinion* dest){	
+	dest->b = op1->b * op2->b;
+	dest->d = op1->b * op2->d;
+	dest->u = op1->d + op1->u + (op1->b * op2->u);
+	dest->a = op2->a;
+	return;
+}
+
+void op_consensus(Opinion* op1, Opinion* op2, Opinion* dest){
+	if((op1->u == 0.0) && (op2->u == 0.0)){
+		dest->b = (op1->b + op2->b) / 2.0;
+		dest->d = (op1->d + op2->d) / 2.0;
+		dest->u = 0.0;
+	} else{
+		float denom = (op1->u + op2->u) - (op1->u * op2->u);
+		dest->b = ((op1->b * op2->u) + (op2->b * op1->u)) / denom;
+		dest->d = ((op1->d * op2->u) + (op2->d * op1->u)) / denom;
+		dest->u = (op1->u * op2->u) / denom;
+	} // Math differs based on uncertainty values
+	dest->a = op1->a;
+	return;
+}
+
+float op_ev(Opinion* op){
+	return op->b + (op->a * op->u);
+}
+

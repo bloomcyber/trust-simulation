@@ -1,0 +1,28 @@
+---------REQUIREMENTS------------
+python3 or python2
+pip3 install matplotlib pandas
+
+
+
+
+run.sh x-axis_parameter resolution
+
+Eg: ./run.sh -usr:pre_trusted 10
+	Varies pre_trusted users by 0 10 20 30 40 .....
+		
+	./run.sh -usr:purely 25
+	Varies purely malicious users by 0 25 50 ... upto(#totalusers-#pretrustedusers(default=5))
+	
+
+not_trusted  category users <= (user-pre_trusted)
+(purely + feedback + provider + disguise + sybil ) + pretrusted(default=5) = total no. of users
+
+
+
+-----x-axis_parameter:------ 
+-usr:pre_trusted: 'pre-trusted' users, a subset of 'good'           pre_trusted
+-usr:purely:      'purely malicious' users                          not_trusted
+-usr:feedback:    'feedback skewing' users                          not_trusted
+-usr:provider:    'malicious provider' users 					    not_trusted
+-usr:disguise:    'disguised malicious' users                       not_trusted  
+-usr:sybil:       'Sybil attack' users                              not_trusted
