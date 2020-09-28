@@ -35,6 +35,9 @@ To know about the Reputation tool see the link at
 
 For each run a folder is created in the tests folder. All the intermediate files and the results are automatically stored inIn this folder.
 The results include
+1. Item 1
+1. Item 2
+1. Item 3
 1) a graph
 2) .csv file for each algo
 3) .csv file consolidated
