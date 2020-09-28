@@ -25,22 +25,22 @@ After running the command , all the intermediate files are stored in a folder(na
 
 
 
-The tool supports the following behaviours of users
-./run.sh -usr:purely 20 5
-./run.sh -usr:disguise 20 5
-./run.sh -usr:sybil 20 5
-./run.sh -usr:provider 20 5
-./run.sh -usr:feedback 20 5
+The tool supports the following behaviours of users  
+./run.sh -usr:purely 20 5  
+./run.sh -usr:disguise 20 5  
+./run.sh -usr:sybil 20 5  
+./run.sh -usr:provider 20 5  
+./run.sh -usr:feedback 20 5  
 
 To know about the Reputation tool see [P2P-SIM README ](https://rtg.cis.upenn.edu/qtm/doc/p2p_readme.txt)
 
 
 For each run a folder is created in the tests folder. All the intermediate files and the results are automatically stored inIn this folder.
-The results include
-1 a graph
-2 .csv file for each algo
-3 .csv file consolidated
-
+The results include  
+1 a graph  
+2 .csv file for each algo  
+3 .csv file consolidated  
+  
 The simulated reputation algorithms are stored in tsys_lib folder.
 
 
