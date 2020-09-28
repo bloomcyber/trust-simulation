@@ -1,8 +1,5 @@
-# P2PSim_C
-
-
 Make sure the files run.sh, genCSV1.py and plotgraph.py are in the same folder as sim_run file.
-Add your reutation algorithm in tsys_lib folder, and execute the following commands
+Add your reputation algorithm in tsys_lib folder, and execute the following commands
   make delete
   make all
 This will add your algorithms to the tool.
@@ -31,6 +28,6 @@ The tool supports the following behaviours of users
 ./run.sh -usr:provider 20 5
 ./run.sh -usr:feedback 20 5
 
-To know about the Reputation tool check the link https://rtg.cis.upenn.edu/qtm/p2psim.php3
+To know about the Reputation tool see the link at 
 
 
