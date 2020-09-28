@@ -24,7 +24,7 @@ After running the command , all the intermediate files are stored in a folder(na
 The tool supports the following behaviours of users
 ./run.sh -usr:purely 20 5
 ./run.sh -usr:disguise 20 5
-./run.sh -usr:sybil 20 
+./run.sh -usr:sybil 20 5
 ./run.sh -usr:provider 20 5
 ./run.sh -usr:feedback 20 5
 
