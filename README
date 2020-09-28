@@ -5,12 +5,12 @@ Add your reputation algorithm in tsys_lib folder, and execute the following comm
 This will add your algorithms to the tool.
 Add your algo name in the array in run.sh script 
 
-Requirements
+##Requirements
   pip install matplotlib
   pip install pandas
   pip install numpy
   
-Give executive permission to the script
+ Give executive permission to the script
   chmod +x run.sh
 
 The default number of users(Total_users) is 100. However it can be modified in run.sh file.
