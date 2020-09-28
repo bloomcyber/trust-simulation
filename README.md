@@ -1,3 +1,4 @@
+This is a script to take the results.
 Make sure the files run.sh, genCSV1.py and plotgraph.py are in the same folder as sim_run file.
 Add your reputation algorithm in tsys_lib folder, and execute the following commands
   make delete
@@ -31,8 +32,8 @@ The tool supports the following behaviours of users
 ./run.sh -usr:provider 20 5
 ./run.sh -usr:feedback 20 5
 
-To know about the Reputation tool see the link at http://github.com - automatic!
-[GitHub](http://github.com)
+To know about the Reputation tool see [P2P-SIM README ](https://rtg.cis.upenn.edu/qtm/doc/p2p_readme.txt)
+
 
 For each run a folder is created in the tests folder. All the intermediate files and the results are automatically stored inIn this folder.
 The results include
