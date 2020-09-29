@@ -1,6 +1,6 @@
 set -e
 [ -d tests ] || mkdir tests
-algList=('smart' 'none' 'zheyang' ) # algList=('zheyang' 'block' 'none' 'eigen' 'tnasl' )
+algList=('block' 'none' 'zheyang' ) # algList=('zheyang' 'block' 'none' 'eigen' 'tnasl' )
 usr=100       #total no. of users
 pt=$3            
 echo pretrust $3
