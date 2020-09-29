@@ -26,7 +26,7 @@ The results include
  You can also try  the following   
  ```
 ./run.sh -usr:provider 20 5         # With pretrust users=5 and users of type -usr:provider=20,40,60,...,100         
-./run.sh -usr:feedback 30 10        # With pretrust users=10 and users of type -usr:provider=30,60,90,...,100         
+./run.sh -usr:feedback 30 10        # With pretrust users=10 and users of type -usr:provider=30,60,90,..,100         
  ```
 To know about the parameters used in the script see [P2P-SIM README ](https://rtg.cis.upenn.edu/qtm/doc/p2p_readme.txt)  
  
