@@ -1,46 +1,36 @@
-This is a script to take the results.
-Make sure the files run.sh, genCSV1.py and plotgraph.py are in the same folder as sim_run file.
-Add your reputation algorithm in tsys_lib folder, and execute the following commands
-  make delete
-  make all
-This will add your algorithms to the tool.
-Add your algo name in the array in run.sh script 
+This code repository is useful to reproduce the results given in the paper titled ### "Decentralized Device Authentication Model using the Trust Score and Blockchain Technology for Dynamic Networks".
 
-## Requirements
-  pip install matplotlib
-  pip install pandas
-  pip install numpy
-  
- Give executive permission to the script
+We used the [QTM: P2P Trust Simulator](https://rtg.cis.upenn.edu/qtm/p2psim.php3) tool for simulating the trust.  
+
+The simulated reputation algorithms in the paper are stored in tsys_lib folder. The file [tsys_smart.c](tsys_lib/tsys_smart.c) represents our algorithm, [tsys_zheyang.c](tsys_lib/tsys_zheyang.c) for zheyang and [tsys_none.c](tsys_lib/tsys_none.c) for no reputation.  
+
+To include other trust algorithms like eigen, tnasl in the results, add eigen and tnasl to the array ### alglist in the script [run.sh](run.sh).   
+
+Make sure the files run.sh, genCSV.py and plotgraph.py are in the same folder as sim_run file.  
+
+The default number of users(Total_users) is 100. However it can be modified in run.sh file.  
+
+Execute the following commands in the root folder
+  pip install matplotlib pandas numpy
+  make delete  
+  make all  
   chmod +x run.sh
-
-The default number of users(Total_users) is 100. However it can be modified in run.sh file.
-The parameteres to run run.sh are
-  ./run.sh user_behaviour step_size pre_trust_users
-
-  ./run.sh -usr:disguise 10 5
-The above command sets no. of pre trust users as 5 and run for disguise users 10,20,30,..... for the algorithms given in the array in run.sh  script.
-  ./run.sh -usr:disguise 20 5 will run for disguise users 20,40,....
-After running the command , all the intermediate files are stored in a folder(name given in the terminal). The folder contains a consolidated csv file, graph and other files. 
-
-
-
-The tool supports the following behaviours of users  
-./run.sh -usr:purely 20 5  
-./run.sh -usr:disguise 20 5  
-./run.sh -usr:sybil 20 5  
-./run.sh -usr:provider 20 5  
-./run.sh -usr:feedback 20 5  
-
-To know about the Reputation tool see [P2P-SIM README ](https://rtg.cis.upenn.edu/qtm/doc/p2p_readme.txt)
-
-
-For each run a folder is created in the tests folder. All the intermediate files and the results are automatically stored inIn this folder.
-The results include  
-1 a graph  
-2 .csv file for each algo  
-3 .csv file consolidated  
+  ./run.sh -usr:purely 10 5         ./run.sh user_behaviour step_size pre_trust_users  
+  ./run.sh -usr:disguise 10 5          
+  ./run.sh -usr:sybil 10 5  
   
-The simulated reputation algorithms are stored in tsys_lib folder.
-
-
+Above commands will give the results. All the intermediate files and the results are automatically stored in the test folder.
+The results include  
+1. a graph  
+2. csv file for each trust algorithm given  
+3. csv file consolidated for all the given trust algorithms  
+ 
+ 
+ 
+ ## Additional
+ You can also try  the following   
+./run.sh -usr:provider 20 5         With pretrust users=5 and users of type -usr:provider=20,40,60,...,100         
+./run.sh -usr:feedback 30 10        With pretrust users=10 and users of type -usr:provider=30,60,90,...,100         
+ 
+To know about the parameters see [P2P-SIM README ](https://rtg.cis.upenn.edu/qtm/doc/p2p_readme.txt)  
+ 
