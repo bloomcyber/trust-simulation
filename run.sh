@@ -1,7 +1,7 @@
 set -e
 [ -d tests ] || mkdir tests
 # algList=('zheyang' 'block' 'none' 'eigen' 'tnasl' )       # or    algList=('eigen' 'none' 'etinc' 'tnasl')
-algList=('smart' 'tnasl' 'none' 'zheyang' )
+algList=('smart' 'none' 'zheyang' )
 usr=100
 pt=$3
 echo pretrust $3
@@ -40,7 +40,7 @@ for j in "${algList[@]}"; do
 	if [ $j = 'zheyang' ];then
 		j='zheya'
 	fi
-	python3 genCSV1.py $j $file $step $i $1
+	python3 genCSV.py $j $file $step $i $1
 	name+=($j".csv")
 done
 name+=($1)
