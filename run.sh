@@ -1,9 +1,8 @@
 set -e
 [ -d tests ] || mkdir tests
-# algList=('zheyang' 'block' 'none' 'eigen' 'tnasl' )       # or    algList=('eigen' 'none' 'etinc' 'tnasl')
-algList=('smart' 'none' 'zheyang' )
-usr=100
-pt=$3
+algList=('smart' 'none' 'zheyang' ) # algList=('zheyang' 'block' 'none' 'eigen' 'tnasl' )
+usr=100       #total no. of users
+pt=$3            
 echo pretrust $3
 file=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 3 | head -n 1`
 folder=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 3 | head -n 1`
@@ -24,7 +23,7 @@ for ((i = 0 ; i <= $eu ; i=$i+$step)); do
 		./sim_run -input $fileout -tm $j -strategy isolated
 	done
 done
-#-band:max_conn -band:period -mode:smartgen -mode:warmup
+
 i=$((i-step))
 echo COPYING.....
 t=$file*
