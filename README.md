@@ -1,4 +1,4 @@
-This code repository is useful to reproduce the results given in the paper titled **"Decentralized Device Authentication Model using the Trust Score and Blockchain Technology for Dynamic Networks"**.
+<div style="text-align: justify"> This code repository is useful to reproduce the results given in the paper titled **"Decentralized Device Authentication Model using the Trust Score and Blockchain Technology for Dynamic Networks"**. </div>  
 
 We used the [QTM: P2P Trust Simulator](https://rtg.cis.upenn.edu/qtm/p2psim.php3) tool for simulating the trust.The simulated reputation algorithms in the paper are stored in tsys_lib folder.The file [tsys_smart.c](tsys_lib/tsys_smart.c) represents our algorithm, [tsys_zheyang.c](tsys_lib/tsys_zheyang.c) for zheyang and [tsys_none.c](tsys_lib/tsys_none.c) for no reputation.To compare other trust algorithms like eigen, tnasl in the results, add eigen and tnasl to the array **alglist** in the script [run.sh](run.sh). 
 
