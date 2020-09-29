@@ -6,10 +6,10 @@ We used the [QTM: P2P Trust Simulator](https://rtg.cis.upenn.edu/qtm/p2psim.php3
   
 Execute the following commands in the root folder  
 ```
-  pip install matplotlib pandas numpy
-  make delete  
+  pip install matplotlib pandas numpy 
+  cd trust-simulation-master
   make all  
-  chmod +x run.sh
+  chmod +x run.sh gen_trace sim_run
   ./run.sh -usr:purely 10 5         #./run.sh user_behaviour step_size pre_trust_users  
   ./run.sh -usr:disguise 10 5          
   ./run.sh -usr:sybil 10 5  
