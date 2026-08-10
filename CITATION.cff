@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this simulation code, please cite the underlying paper as below."
+authors:
+  - family-names: "Subramanian"
+    given-names: "Venkatesan"
+  - family-names: "Rajendra"
+    given-names: "Yuvaraj"
+  - family-names: "Sahai"
+    given-names: "Shubham"
+  - family-names: "Shukla"
+    given-names: "Sandeep K."
+title: "Decentralized device authentication model using the trust score and blockchain technology for dynamic networks"
+collection-title: "2020 IEEE International Conference on Blockchain (Blockchain)"
+type: conference-paper
+pages: "116-125"
+year: 2020
+publisher: "IEEE"
