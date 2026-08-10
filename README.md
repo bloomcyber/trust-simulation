@@ -1,4 +1,4 @@
-This code repository is useful to reproduce the results given in the paper titled **"Decentralized Device Authentication Model using the Trust Score and Blockchain Technology for Dynamic Networks"**.  
+This code repository is useful to reproduce the results given in the paper titled **"Decentralized Device Authentication Model using the Trust Score and Blockchain Technology for Dynamic Networks"[^1]**.  
 
 We used the [QTM: P2P Trust Simulator](https://rtg.cis.upenn.edu/qtm/p2psim.php3) tool for simulating the trust.The simulated trust algorithms in the paper are stored in tsys_lib folder.The file [tsys_block.c](tsys_lib/tsys_block.c) represents our algorithm, [tsys_zheyang.c](tsys_lib/tsys_zheyang.c) for zheyang and [tsys_none.c](tsys_lib/tsys_none.c) for no trust management.To compare other trust algorithms like eigen, tnasl in the results, add eigen and tnasl to the array **alglist** in the script [run.sh](run.sh). 
 
@@ -29,4 +29,21 @@ The results include
 ./run.sh -usr:feedback 30 10        # With pretrust users=10 and users of type -usr:provider=30,60,90,..,100         
  ```
 To know about the parameters used in the script see [P2P-SIM README ](https://rtg.cis.upenn.edu/qtm/doc/p2p_readme.txt)  
- 
+<!-- References Section -->
+[^1]: Subramanian, Venkatesan, Yuvaraj Rajendra, Shubham Sahai, and Sandeep K. Shukla. "Decentralized device authentication model using the trust score and blockchain technology for dynamic networks." In 2020 IEEE International Conference on Blockchain (Blockchain), pp. 116-125. IEEE, 2020.
+
+
+## Citation
+
+If you use this simulation code or find our work helpful, please cite the original paper:
+
+```bibtex
+@inproceedings{subramanian2020decentralized,
+  title={Decentralized device authentication model using the trust score and blockchain technology for dynamic networks},
+  author={Subramanian, Venkatesan and Rajendra, Yuvaraj and Sahai, Shubham and Shukla, Sandeep K},
+  booktitle={2020 IEEE International Conference on Blockchain (Blockchain)},
+  pages={116--125},
+  year={2020},
+  organization={IEEE}
+}
+```
